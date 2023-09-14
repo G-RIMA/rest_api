@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
   try {
     const { name, age } = req.body;
     const highestPerson = await Person.findOne({}, {}, { sort: { _id: -1 } });
-    const nextId = highestPerson ? highestPerson._id + 1 : 1;
+    const nextId = await getNextId();
     const person = new Person({ _id: nextId, name, age });
     await person.save();
     res.status(201).json(person);
