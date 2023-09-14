@@ -22,6 +22,53 @@ async function getNextId() {
   return nextId;
 }
 
+// CREATE: Adding a new person
+app.post("/api/persons", async (req, res) => {
+  try {
+    const { name, age } = req.body;
+    const nextId = await getNextId();
+    const person = new Person({ _id: nextId, name, age });
+    await person.save();
+    res.status(201).json(person);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error });
+  }
+});
+
+// READ: Fetching details of a person
+app.get("/api/persons/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const person = await Person.findById(userId);
+    if (!person) {
+      return res.status(404).json({ error: "Person not found" });
+    }
+    res.json(person);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// UPDATE: Modifying details of an existing person
+app.put("/api/persons/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { name, age } = req.body;
+    const person = await Person.findByIdAndUpdate(
+      userId,
+      { name, age },
+      { new: true }
+    );
+    if (!person) {
+      return res.status(404).json({ error: "Person not found" });
+    }
+    res.json(person);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 app.delete("/api/persons/delete-all", async (req, res) => {
   try {
     // Use Mongoose's deleteMany to delete all documents in the collection
@@ -35,6 +82,21 @@ app.delete("/api/persons/delete-all", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error });
+  }
+});
+
+// DELETE: Removing a person
+app.delete("/api/persons/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const person = await Person.findByIdAndDelete(userId);
+    if (!person) {
+      return res.status(404).json({ error: "Person not found" });
+    }
+    res.json({ message: "Person deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
