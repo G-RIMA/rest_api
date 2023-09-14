@@ -28,7 +28,7 @@ async function getNextId() {
 }
 
 // CREATE: Adding a new person
-app.post("/", async (req, res) => {
+app.post("/api", async (req, res) => {
   try {
     const { name, age } = req.body;
     const nextId = await getNextId();
@@ -42,7 +42,7 @@ app.post("/", async (req, res) => {
 });
 
 // READ: Fetching details of a person
-app.get("/:userId", async (req, res) => {
+app.get("/api/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
     const person = await Person.findById(userId);
@@ -56,7 +56,7 @@ app.get("/:userId", async (req, res) => {
 });
 
 // UPDATE: Modifying details of an existing person
-app.put("/:userId", async (req, res) => {
+app.put("/api/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
     const { name, age } = req.body;
@@ -75,7 +75,7 @@ app.put("/:userId", async (req, res) => {
 });
 
 // DELETE: Removing a person
-app.delete("/:userId", async (req, res) => {
+app.delete("/api/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
     const person = await Person.findByIdAndDelete(userId);
