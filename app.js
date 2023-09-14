@@ -29,7 +29,7 @@ async function getNextId() {
 }
 
 // CREATE: Adding a new person
-app.post("/api/persons", async (req, res) => {
+app.post("/api", async (req, res) => {
   try {
     const { name, age } = req.body;
     const nextId = await getNextId();
@@ -43,7 +43,7 @@ app.post("/api/persons", async (req, res) => {
 });
 
 // READ: Fetching details of a person
-app.get("/api/persons/:userId", async (req, res) => {
+app.get("/api/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
     const person = await Person.findById(userId);
@@ -57,7 +57,7 @@ app.get("/api/persons/:userId", async (req, res) => {
 });
 
 // UPDATE: Modifying details of an existing person
-app.put("/api/persons/:userId", async (req, res) => {
+app.put("/api/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
     const { name, age } = req.body;
@@ -75,7 +75,7 @@ app.put("/api/persons/:userId", async (req, res) => {
   }
 });
 
-app.delete("/api/persons/delete-all", async (req, res) => {
+app.delete("/api/delete-all", async (req, res) => {
   try {
     // Use Mongoose's deleteMany to delete all documents in the collection
     const result = await Person.deleteMany({});
@@ -92,7 +92,7 @@ app.delete("/api/persons/delete-all", async (req, res) => {
 });
 
 // DELETE: Removing a person
-app.delete("/api/persons/:userId", async (req, res) => {
+app.delete("/api/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
     const person = await Person.findByIdAndDelete(userId);
