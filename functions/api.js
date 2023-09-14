@@ -5,6 +5,7 @@ const Person = require("./models/person");
 const serverless = require("serverless-http");
 
 const app = express();
+const router = express.Router();
 app.use(bodyParser.json());
 
 // Connect to MongoDB (replace 'mongodb://localhost/your-database-name' with your MongoDB connection string)
@@ -30,7 +31,7 @@ async function getNextId() {
 }
 
 // CREATE: Adding a new person
-app.post("/api", async (req, res) => {
+router.post("/api", async (req, res) => {
   try {
     const { name, age } = req.body;
     const nextId = await getNextId();
@@ -44,7 +45,7 @@ app.post("/api", async (req, res) => {
 });
 
 // READ: Fetching details of a person
-app.get("/api/:userId", async (req, res) => {
+router.get("/api/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
     const person = await Person.findById(userId);
@@ -58,7 +59,7 @@ app.get("/api/:userId", async (req, res) => {
 });
 
 // UPDATE: Modifying details of an existing person
-app.put("/api/:userId", async (req, res) => {
+router.put("/api/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
     const { name, age } = req.body;
@@ -76,7 +77,7 @@ app.put("/api/:userId", async (req, res) => {
   }
 });
 
-app.delete("/api/delete-all", async (req, res) => {
+router.delete("/api/delete-all", async (req, res) => {
   try {
     // Use Mongoose's deleteMany to delete all documents in the collection
     const result = await Person.deleteMany({});
@@ -93,7 +94,7 @@ app.delete("/api/delete-all", async (req, res) => {
 });
 
 // DELETE: Removing a person
-app.delete("/api/:userId", async (req, res) => {
+router.delete("/api/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
     const person = await Person.findByIdAndDelete(userId);
@@ -109,7 +110,9 @@ app.delete("/api/:userId", async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-//app.listen(PORT, () => {
+app.use("/.netlify/functions/", router);
+
+// app.listen(PORT, () => {
 //console.log(`Server is running on port ${PORT}`);
 //});
 
