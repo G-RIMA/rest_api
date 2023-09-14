@@ -1,17 +1,5 @@
 {
   "version": 2,
-  "builds": [
-    { "src": "api/create.js", "use": "@vercel/node" },
-    { "src": "api/read.js", "use": "@vercel/node" },
-    { "src": "api/update.js", "use": "@vercel/node" },
-    { "src": "api/delete.js", "use": "@vercel/node" }
-  ],
-  "routes": [
-    { "src": "/api", "dest": "api/create.js" },
-    { "src": "/api/:userId", "dest": "api/read.js" },
-    { "src": "/api/:userId", "dest": "api/update.js" },
-    { "src": "/api/delete-all", "dest": "api/delete.js" },
-    { "src": "/api/:userId", "dest": "api/delete.js" },
-    { "src": "/(.*)", "dest": "api/read.js" }
-  ]
+  "builds": [{ "src": "/apiapi", "use": "@vercel/node" }],
+  "routes": [{ "src": "/api", "dest": "app.js" }]
 }
