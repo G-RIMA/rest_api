@@ -7,10 +7,10 @@
     { "src": "api/delete.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/api/create", "dest": "api/create.js" },
-    { "src": "/api/read/:userId", "dest": "api/read.js" },
-    { "src": "/api/update/:userId", "dest": "api/update.js" },
-    { "src": "/api/delete/:userId", "dest": "api/delete.js" },
+    { "src": "/api", "dest": "api/create.js" },
+    { "src": "/api/:userId", "dest": "api/read.js" },
+    { "src": "/api/:userId", "dest": "api/update.js" },
+    { "src": "/api/:userId", "dest": "api/delete.js" },
     { "src": "/api/delete-all", "dest": "api/delete.js" },
     { "src": "/(.*)", "dest": "api/read.js" }
   ]
