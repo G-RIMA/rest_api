@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 // Define the schema for the "Person" model
 const personSchema = new mongoose.Schema({
+  _id: Number,
   name: {
     type: String,
     required: true,
