@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
     res.json(person);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: error.message });
   } finally {
     // Disconnect from MongoDB
     mongoose.disconnect();
