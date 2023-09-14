@@ -11,6 +11,18 @@ module.exports = async (req, res) => {
     }
   );
 
+  // Create a function to get the next available _id
+  async function getNextId() {
+    try {
+      const highestPerson = await Person.findOne({}, {}, { sort: { _id: -1 } });
+      const nextId = highestPerson ? highestPerson._id + 1 : 1;
+      return nextId;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
   try {
     const { name, age } = req.body;
     const highestPerson = await Person.findOne({}, {}, { sort: { _id: -1 } });
