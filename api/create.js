@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
     res.status(201).json(person);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error });
+    res.status(500).json({ error: error.message });
   } finally {
     // Disconnect from MongoDB
     mongoose.disconnect();
