@@ -108,10 +108,6 @@ app.delete("/api/:userId", async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-app.get("/", (req, res) => {
-  res.status(200).json("Welcome");
-});
-
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
