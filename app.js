@@ -16,10 +16,16 @@ mongoose.connect(
 );
 
 //create simple id
+// Create a function to get the next available _id
 async function getNextId() {
-  const highestPerson = await Person.findOne({}, {}, { sort: { _id: -1 } });
-  const nextId = highestPerson ? highestPerson._id + 1 : 1;
-  return nextId;
+  try {
+    const highestPerson = await Person.findOne({}, {}, { sort: { _id: -1 } });
+    const nextId = highestPerson ? highestPerson._id + 1 : 1;
+    return nextId;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
 }
 
 // CREATE: Adding a new person
