@@ -10,8 +10,8 @@
     { "src": "/api", "dest": "api/create.js" },
     { "src": "/api/:userId", "dest": "api/read.js" },
     { "src": "/api/:userId", "dest": "api/update.js" },
-    { "src": "/api/:userId", "dest": "api/delete.js" },
     { "src": "/api/delete-all", "dest": "api/delete.js" },
+    { "src": "/api/:userId", "dest": "api/delete.js" },
     { "src": "/(.*)", "dest": "api/read.js" }
   ]
 }
