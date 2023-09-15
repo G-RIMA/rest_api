@@ -2,19 +2,15 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const Person = require("./models/person");
-const serverless = require("serverless-http");
 
 const app = express();
 app.use(bodyParser.json());
 
 // Connect to MongoDB (replace 'mongodb://localhost/your-database-name' with your MongoDB connection string)
-mongoose.connect(
-  "mongodb+srv://maria:0907@cluster0.t1gpwj2.mongodb.net/?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect(DATABASE_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 //create simple id
 // Create a function to get the next available _id
@@ -109,8 +105,6 @@ app.delete("/api/:userId", async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-//app.listen(PORT, () => {
-//console.log(`Server is running on port ${PORT}`);
-//});
-
-module.exports.handler = serverless(app);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
