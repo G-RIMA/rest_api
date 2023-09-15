@@ -2,12 +2,13 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const Person = require("./models/person");
+require("dotenv").config();
 
 const app = express();
 app.use(bodyParser.json());
 
 // Connect to MongoDB (replace 'mongodb://localhost/your-database-name' with your MongoDB connection string)
-mongoose.connect(DATABASE_URL, {
+mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
