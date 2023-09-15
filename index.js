@@ -106,8 +106,8 @@ app.delete("/api/:userId", async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-app.get("/", async (req, res) => {
-  return "welcome to my rest api";
+app.get("/", (req, res) => {
+  res.send("Hello, World!");
 });
 
 app.listen(PORT, () => {
